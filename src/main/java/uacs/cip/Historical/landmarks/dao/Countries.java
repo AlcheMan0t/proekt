@@ -1,6 +1,4 @@
 package uacs.cip.Historical.landmarks.dao;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
