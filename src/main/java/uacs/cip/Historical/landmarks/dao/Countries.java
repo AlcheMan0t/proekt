@@ -10,7 +10,7 @@ public class Countries {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
-    private String location;
+    private String name;
     private String capital;
 
     @OneToMany(mappedBy = "country", orphanRemoval = true, cascade = CascadeType.ALL)
@@ -22,15 +22,15 @@ public class Countries {
     public Countries() {
     }
 
-    public Countries(String location, String capital, List<Historical_Landmarks> landmarks) {
-        this.location = location;
+    public Countries(String name, String capital, List<Historical_Landmarks> landmarks) {
+        this.name = name;
         this.capital = capital;
         this.landmarks = landmarks;
     }
 
-    public Countries(Long id, String location, String capital, List<Historical_Landmarks> landmarks) {
+    public Countries(Long id, String name, String capital, List<Historical_Landmarks> landmarks) {
         this.Id = id;
-        this.location = location;
+        this.name = name;
         this.capital = capital;
         this.landmarks = landmarks;
     }
@@ -43,12 +43,12 @@ public class Countries {
         this.Id = id;
     }
 
-    public String getLocation() {
-        return location;
+    public String getName() {
+        return name;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getCapital() {
@@ -72,7 +72,7 @@ public class Countries {
     public String toString() {
         return "Countries{" +
                 "Id=" + Id +
-                ", location='" + location + '\'' +
+                ", location='" + name + '\'' +
                 ", capital='" + capital + '\'' +
                 ", landmarks=" + landmarks +
                 '}';

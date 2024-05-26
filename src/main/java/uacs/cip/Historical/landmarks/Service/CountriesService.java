@@ -59,6 +59,20 @@ public class CountriesService {
      historicalLandmarks.setCountry(countries);
      return historicalLandmarksRepo.save(historicalLandmarks);
     }
+    public Historical_Landmarks addHLToCountry(Long countriesId, Long historicalLandmarkId) {
+        Optional<Countries> optionalCountry = countriesRepository.findById(countriesId);
+        Optional<Historical_Landmarks> optionalLandmark = historicalLandmarksRepo.findById(historicalLandmarkId);
+
+        if (optionalCountry.isPresent() && optionalLandmark.isPresent()) {
+            Countries country = optionalCountry.get();
+            Historical_Landmarks historicalLandmark = optionalLandmark.get();
+
+            historicalLandmark.setCountry(country);
+            return historicalLandmarksRepo.save(historicalLandmark);
+        } else {
+            throw new RuntimeException("Country or Historical Landmark not found");
+        }
+    }
 }
 
 

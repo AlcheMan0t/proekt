@@ -82,6 +82,15 @@ public class HistoricalLandmarksController {
             return ResponseEntity.notFound().build();
         }
     }
+    @PostMapping("/{HLId}/add-historical-figure/{HFId}")
+    public ResponseEntity<Historical_Landmarks> addHFToHL(@PathVariable Long HLId, @PathVariable Long HFId) {
+        try {
+            Historical_Landmarks updatedLandmark = historicalLandmarksService.addHFToHL(HLId, HFId);
+            return ResponseEntity.ok(updatedLandmark);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
 
 

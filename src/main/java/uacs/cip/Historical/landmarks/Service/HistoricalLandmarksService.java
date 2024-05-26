@@ -54,5 +54,18 @@ public class HistoricalLandmarksService {
 
 
     }
+    public Historical_Landmarks addHFToHL(Long HLId, Long HFId) {
+        Optional<Historical_Landmarks> optionalLandmark = historicalLandmarksRepo.findById(HLId);
+        Optional<Historical_figures> optionalFigure = historicalFiguresRepo.findById(HFId);
+
+        if (optionalLandmark.isPresent() && optionalFigure.isPresent()) {
+            Historical_Landmarks landmark = optionalLandmark.get();
+            Historical_figures figure = optionalFigure.get();
+            landmark.getHistoricalFigures().add(figure);
+            return historicalLandmarksRepo.save(landmark);
+        } else {
+            throw new RuntimeException("Historical Landmark or Historical Figure not found");
+        }
+    }
 }
 

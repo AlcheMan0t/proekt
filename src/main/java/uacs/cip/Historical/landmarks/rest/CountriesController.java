@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import uacs.cip.Historical.landmarks.Service.CountriesService;
-import uacs.cip.Historical.landmarks.Service.HistoricalLandmarksService;
 import uacs.cip.Historical.landmarks.dao.Countries;
 import uacs.cip.Historical.landmarks.dao.Historical_Landmarks;
 
@@ -59,7 +58,15 @@ public class CountriesController {
     Historical_Landmarks addHLToCountry(@PathVariable Long countriesId, @RequestBody Historical_Landmarks historical_landmarks){
         return countriesService.addHLToCountry(countriesId, historical_landmarks);
     }
-
+    @PostMapping("/{countriesId}/add-historical-landmark/{historicalLandmarkId}")
+    public ResponseEntity<Historical_Landmarks> addHLToCountryByIds(@PathVariable Long countriesId, @PathVariable Long historicalLandmarkId) {
+        try {
+            Historical_Landmarks addedHistoricalLandmark = countriesService.addHLToCountry(countriesId, historicalLandmarkId);
+            return ResponseEntity.ok(addedHistoricalLandmark);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
 
     @PutMapping("/{id}")
@@ -67,7 +74,7 @@ public class CountriesController {
         Optional<Countries> countryOptional = countriesService.getCountryById(id);
         if (countryOptional.isPresent()) {
             Countries country = countryOptional.get();
-            country.setLocation(countryDetails.getLocation());
+            country.setName(countryDetails.getName());
             country.setCapital(countryDetails.getCapital());
             country.getLandmarks().clear();
             if (countryDetails.getLandmarks() != null) {
